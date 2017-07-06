@@ -1,0 +1,7 @@
+registered_domain,xpath
+theatlantic.com,"//h1[@itemprop=""headline""]/descendant-or-self::*"
+engadget.com,"//div[@class=""post-title""]/descendant-or-self::*"
+townhall.com,"//div[@class=""headline""]/descendant-or-self::*"
+foxnews.com,"//header[@class=""article-header""]/h1/descendant-or-self::*"
+people.com,"//div[@class=""content""]/h2/descendant-or-self::*"
+go.com,"//div[@class=""amp-headline""]/descendant-or-self::*"

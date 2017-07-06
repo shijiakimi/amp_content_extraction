@@ -1,0 +1,57 @@
+registered_domain,xpath
+9to5mac.com,"//div[contains(@class,""amp-wp-content"")]/*[not(self::ul)]//amp-img/@src"
+androidauthority.com,"//div[contains(@class,""amp-wp-article-content"")]/*[not(self::ul)]//amp-img/@src"
+apnews.com,"//div[contains(@class,""articleBody"")]/*[not(self::ul)]//amp-img/@src"
+arstechnica.com,"//div[contains(@class,""amp-wp-content"")]/*[not(self::ul)]//amp-img/@src"
+avclub.com,"//div[@class=""main-container""]//figure/amp-img/@src"
+bbc.co.uk,"//div[@class=""image_container""]//amp-img/@src"
+bhg.com,//article//amp-img/@src
+billboard.com,//article/figure/amp-img/@src
+bleacherreport.com,//body/section//amp-img/@src
+breitbart.com,"//div[contains(@class,""content"")]/*[(not(self::footer))]//amp-img/@src"
+businessinsider.com,"//article/section/*[not(contains(@class,""ad-container""))]//amp-img/@src"
+cbsnews.com,//article//amp-img/@src
+cbssports.com,"//div[@id=""content""]//amp-img/@src"
+cnbc.com,"//div[@id=""article_body""]//amp-img/@src"
+elle.com,"//div[contains(@class,""body--content"")]//amp-img/@src | //div[contains(@class,""gallery-container"")]//amp-img/@src"
+engadget.com,//main//amp-img/@src
+entrepreneur.com,//article//amp-img/@src
+eonline.com,"//article/div[@class=""img-wrap""]//amp-img/@src"
+ew.com,//body//amp-img/@src
+fortune.com,"//div[@class=""content""]/div//amp-img/@src"
+foxnews.com,"//section[@class=""main-article""]/article//amp-img/@src"
+harpersbazaar.com,"//div[@class=""standard-body""]//amp-img/@src | //div[@class=""gallery-body""]//amp-img/@src"
+health.com,"//div[@class=""content""]/div//amp-img/@src"
+hollywoodlife.com,"//div[contains(@class,""content-wrapper"")]//amp-img/@src"
+hollywoodreporter.com,//article//amp-img/@src
+independent.co.uk,"//article/amp-img/@src | //article/div[@class=""content""]//amp-img/@src"
+marketwatch.com,//article//amp-img/@src
+mashable.com,//article//amp-img/@src
+medicalxpress.com,//article//figure//amp-img/@src
+menshealth.com,//article//amp-img/@src
+nbcnews.com,"//div[@class=""article-body""]/figure//amp-img/@src"
+nbcsports.com,//article/figure//amp-img/@src
+nypost.com,"//div[@class=""content""]/div[@class=""featured-image""]//amp-img/@src"
+people.com,"//div[@class=""hero""]//amp-img/@src | //div[@class=""content""]//amp-img/@src"
+reuters.com,"//div[contains(@class,""related-slideshow"")]//amp-img/@src"
+sbnation.com,//article//amp-img/@src
+si.com,"//div[@class=""article""]//amp-img/@src"
+slate.com,//main//amp-img/@src
+technologyreview.com,//article//amp-img/@src
+theatlantic.com,//article//amp-img/@src
+thenextweb.com,"//div[@class=""content""]/amp-img/@src | //div[@class=""content""]/div[@class=""post-content""]//figure/amp-img/@src"
+theverge.com,"//div[@class=""article__body""]//amp-img/@src"
+thewrap.com,"//div[@class=""amp-wp-content""]//amp-img/@src"
+time.com,"//div[@class=""content""]/div[@class=""hero""]//amp-img/@src | //div[@class=""content""]/div[@class=""article""]//amp-img/@src"
+townhall.com,"//div[@class=""mainImage""]//amp-img/@src"
+uproxx.com,"//div[@class=""amp-wp-article-content""]//amp-img/@src"
+variety.com,"//div[@class=""amp-fn-content""]//amp-img/@src"
+venturebeat.com,//article//amp-img/@src
+vogue.com,"//div[@class=""article""]//amp-img/@src"
+washingtonpost.com,"//div[@class=""content-container""]//amp-img/@src"
+wired.com,"//header//amp-img/@src | div[@class=""article""]//amp-img/@src"
+zdnet.com,"//div[@class=""story-body""]//figure//amp-img/@src"
+go.com,"//div[@class=""amp-page-body""]/figure//amp-img/@src"
+yahoo.com,//article//figure//amp-img/@src
+nfl.com,"//div[@class=""articleText""]//amp-img/@src"
+instyle.com,"//div[@class=""hero__image""]//amp-img/@src | //div[@class=""article""]//amp-img/@src"
