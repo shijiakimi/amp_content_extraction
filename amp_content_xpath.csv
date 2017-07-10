@@ -65,3 +65,11 @@ health.com,"//div[@class=""article""]/*[not(contains(@class,""advertisement""))]
 si.com,"//div[@class=""article""]/*[not(contains(@class,""advertisement""))]"
 go.com,"//div[@class=""amp-page-body""]/p"
 yahoo.com,//article/p
+usatoday.com,"//div[@itemprop=""articleBody""]/*[self::p or self::blockquote or self::ul or self::h3 or self::h2] | //div[@class=""amp-wp-content""]/*[self::p or self::blockquote or self::ul or self::h3 or self::h2]"
+cnn.com,"//div[@class=""body_text""]/*[self::p or self::blockquote or self::ul or self::h3 or self::h2]"
+247sports.com,//article/*[self::p or self::blockquote or self::ul or self::h3 or self::h2]
+aol.com,"//div[@class=""content""]/*[self::p or self::blockquote or self::ul or self::h3 or self::h2]"
+nytimes.com,"//div[@class=""article-body""]/*[self::p or self::blockquote or self::ul or self::h3 or self::h2]"
+thehill.com,"//div[@class=""field-item even""]/p[not(descendant::amp-ad)]"
+techcrunch.com,"//div[@class=""content""]/p[not(contains(@class,""image""))]"
+nydailynews.com,//article/*[self::p or self::blockquote or self::ul or self::h3 or self::h2]

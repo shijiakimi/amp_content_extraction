@@ -1,17 +1,32 @@
 import json
 from kafka import KafkaConsumer
 import logging
+import os
+from lxml.html import fromstring
+from logging.handlers import TimedRotatingFileHandler
 import extract_amp_page
 import tldextract
 import csv
 import arrow
-from pymongo import MongoClient, DESCENDING
+from pymongo import MongoClient
+
 
 logger = logging.getLogger(__name__)
-common_xpath = '(//h1)[1]/descendant-or-self::*'
+common_xpath = '(//h1)[1]'
 
 kafka_consumer = None
 kafka_host = '172.31.18.250:9092,172.31.27.13:9092,172.31.19.188:9092'
+
+
+def config_log():
+    # logging.getLogger("kafka").setLevel(logging.ERROR)
+    if not os.path.isdir('logs'):
+        os.mkdir('logs')
+    formatter = logging.Formatter(fmt='%(asctime)s, %(name)s %(levelname)s %(message)s',
+                                  datefmt='%Y-%m-%d %H:%M:%S')
+    handler = TimedRotatingFileHandler('logs/' + 'amp_process' + '.log', when='D')
+    handler.setFormatter(formatter)
+    logging.getLogger().addHandler(handler)
 
 
 def init_client(host, port):
@@ -56,20 +71,18 @@ def normalize(url):
         return None
 
 
-def extract_title(content, title_xpath):
-    title = extract_amp_page.extract_title(content, title_xpath)
+def extract_title(root, title_xpath):
+    title = extract_amp_page.extract_title(root, title_xpath)
     return title
 
 
-def extract_clean_content(content, content_xpath):
-    nodes = extract_amp_page.extract_nodes_by_xpath(content, content_xpath)
-    lines = extract_amp_page.get_extracted_html(nodes)
-    return lines
+def extract_clean_content(root, content_xpath):
+    html = extract_amp_page.extract_content_html_by_xpath(root, content_xpath)
+    return html
 
 
-def extract_img_urls(content, img_xpath):
-    return extract_amp_page.extract_img(content, img_xpath)
-
+def extract_img_urls(root, img_xpath):
+    return extract_amp_page.extract_img(root, img_xpath)
 
 def get_registered_domain(url):
     ext = tldextract.extract(url)
@@ -110,30 +123,37 @@ def process_record(msg_str, title_special_dict, content_dict, img_dict, white_li
         if registered_domain not in white_list_domain:
             return {}
 
-        if registered_domain in title_special_dict:
-            title_xpath = title_special_dict[registered_domain]
-        else:
-            title_xpath = common_xpath
-        if registered_domain in content_dict:
-            content_xpath = content_dict[registered_domain]
-        else:
-            content_xpath = ''
-            logger.info('no content xpath found: {0}'.format(amp_url))
-        if registered_domain in img_dict:
-            img_xpath = img_dict[registered_domain]
-        else:
-            img_xpath = ''
-            logger.info('no image xpath found: {0}'.format(amp_url))
+        title_xpath = title_special_dict.get(registered_domain, common_xpath)
+        if not title_xpath:
+            logger.info('need to add title xpath for: {}'.format(amp_url))
+        content_xpath = content_dict.get(registered_domain)
+        if not content_xpath:
+            logger.info('need to add content xpath for: {}'.format(amp_url))
+        img_xpath = img_dict.get(registered_domain)
+        if not img_xpath:
+            logger.info('need to add img xpath for: {}'.format(amp_url))
         content = record['content']
-        amp_title = extract_title(content, title_xpath)
-        amp_clean_content = extract_clean_content(content, content_xpath)
-        amp_img_urls = extract_img_urls(content, img_xpath)
+        if not content:
+            return {}
+        root = fromstring(content)
+        amp_title = extract_title(root, title_xpath)
+        amp_clean_content = extract_clean_content(root, content_xpath)
+        amp_img_urls = extract_img_urls(root, img_xpath)
+        data['amp_img_xpath'] = img_xpath
+        data['amp_title_xpath'] = title_xpath
+        data['amp_content_xpath'] = content_xpath
         data['amp_img_urls'] = amp_img_urls
         data['amp_img_num'] = len(amp_img_urls)
+        if not amp_img_urls:
+            logger.info('no img found, need to check img xpath for: {}'.format(amp_url))
         data['amp_url'] = amp_url
         data['url'] = canonical_url
         data['amp_extract_title'] = amp_title
+        if not amp_title:
+            logger.info('no title found, need to check title xpath for: {}'.format(amp_url))
         data['amp_clean_content'] = amp_clean_content
+        if not amp_clean_content:
+            logger.info('no clean content found, need to check content xpath for: {}'.format(amp_url))
         data['epoch'] = generate_now_timestamp()
         return data
     except:
@@ -170,7 +190,7 @@ if __name__ == "__main__":
     logging.basicConfig(format='%(asctime)s, %(name)s %(levelname)s %(message)s',
                         datefmt="%Y-%m-%d %H:%M:%S",
                         level=logging.INFO)
-
+    config_log()
     title_special_list_file = "title_special_list_xpath.csv"
     white_list_file = 'whitelist.tsv'
     content_list_file = 'amp_content_xpath.csv'

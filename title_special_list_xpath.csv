@@ -5,3 +5,6 @@ townhall.com,"//div[@class=""headline""]/descendant-or-self::*"
 foxnews.com,"//header[@class=""article-header""]/h1/descendant-or-self::*"
 people.com,"//div[@class=""content""]/h2/descendant-or-self::*"
 go.com,"//div[@class=""amp-headline""]/descendant-or-self::*"
+nytimes.com,//article//h1
+thehill.com,//article//h1
+bleacherreport.com,"//span[@class=""headline""]"
